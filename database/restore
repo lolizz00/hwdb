@@ -1,0 +1,1 @@
+mysql -uroot -psimonka13 SWB < SWB.sql

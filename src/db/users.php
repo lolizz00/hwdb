@@ -1,7 +1,8 @@
 <?php
 
-include 'db.php';
+include('dbUser.php');
 
+$db = new hwdbUser();
 $resp = [];
 
 
@@ -36,9 +37,7 @@ else
         $login = $data['login'];
         $pass = $data['pass'];
 
-        // TODO: other params
 
-        $db = new hwdb();
         $res = $db->addUser($login, $pass);
         $resp['status'] = $res;
       }
@@ -66,8 +65,6 @@ else
       {
         $login = $data['login'];
         $pass = $data['pass'];
-
-        $db = new hwdb();
 
         $user = $db->getUser($login);
         if(!$user)
@@ -98,7 +95,6 @@ else
     {
       if(isset($_COOKIE['currUser']) && ($_COOKIE['currUser'] != ''))
       {
-        $db = new hwdb();
         $user = $db->getUser($_COOKIE['currUser']);
 
         if($user === false)

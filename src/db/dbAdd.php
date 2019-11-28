@@ -122,25 +122,26 @@ class hwdbAdd extends hwdb
    Добавление в историю перемещений
 
    0 - Серийный номер устройства
-   1 - Название места
-   2 - Время
-   3 - логин
+   1 - тип устройства
+   2 - Название места
+   3 - Время
+   4 - логин
 */
   function addPlacesHistory($params)
   {
-    if(count($params) != 4) { return "Неправильные аргументы!";}
+    if(count($params) != 5) { return "Неправильные аргументы!";}
 
-    $devID = $this->getIDbySerialCodeDevices($params[0]);
+    $devID = $this->getIDbySerialTypeDevices($params[0], $params[1]);
     if($devID === false) { return "Неизвестное устройство!"; }
 
-    $plID = $this->getIDbyNamePlaces($params[1]);
+    $plID = $this->getIDbyNamePlaces($params[2]);
     if($plID === false) { return "Неизвестное место!"; }
 
-    $usrID = $this->getIDbyLoginUsers($params[3]);
+    $usrID = $this->getIDbyLoginUsers($params[4]);
     if($usrID === false) { return "Неизвестный пользователь!"; }
 
     $txt = "INSERT INTO `Places History` VALUES(null, ?, ?, ?, ?)";
-    $params = [$devID, $plID, $params[2], $usrID];
+    $params = [$devID, $plID, $params[3], $usrID];
     $stat = true;
     $res = $this->queryDB($txt, $params, $stat);
 
@@ -201,6 +202,36 @@ class hwdbAdd extends hwdb
 
     return $stat;
   }
+
+
+  /*
+    Добавление необходимых тестов для типа устройств
+
+    0 - название типа
+    1 - название теста
+  */
+  function addTestsForTypes($params)
+  {
+    if(count($params) != 2) { return "Неправильные аргументы!"; }
+    $stat = true;
+
+    $tstID = $this->getIDbyNameTests($params[1]);
+    if($tstID === false) { return "Неизвестый тест!"; }
+
+    $typeID = $this->getIDbyNameTypes($params[0]);
+    if($typeID === false) { return "Неизвестый тип!";}
+
+    if(!$this->checkTypeTestAlr($typeID, $tstID))
+    { return "Такая привязка уже существует!"; }
+
+    $txt = "INSERT INTO `Tests For Types` VALUES(NULL, ?, ?)";
+    $res = $this->queryDB($txt, [$typeID, $tstID], $stat);
+
+    if($stat){return "Успешно!";} else { return "Ошибка!";}
+
+
+  }
+
 
 }
 

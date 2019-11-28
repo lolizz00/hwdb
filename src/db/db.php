@@ -120,6 +120,20 @@ class hwdb
         if(!count($tmp)) { return false; } else { return true; }
     }
 
+    function checkTestsForTypesIDexists($id)
+    {
+      $txt = "SELECT * FROM `Tests For Types` WHERE ID = ?";
+      $tmp = $this->queryDB($txt, $id, $stat)->fetchAll();
+      if(!count($tmp)) { return false; } else { return true; }
+    }
+
+    function checkTypeTestAlr($typeID, $tstID)
+    {
+      $txt = "SELECT * FROM `Tests For Types` WHERE `Type ID` = ?  AND `Test ID` = ?";
+      $tmp = $this->queryDB($txt, [$typeID, $tstID], $stat)->fetchAll();
+      if(count($tmp)) { return false; } else { return true; }
+    }
+
 
 }
 

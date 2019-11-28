@@ -4,17 +4,25 @@
   include('dbUser.php');
   include('dbDelete.php');
   include('dbRemove.php');
+  include('dbEdit.php');
+
 
   $date = "2019-11-15 21:11:10";
 
 
+  $user = new hwdbUser();
   $list = new hwdbList();
   $add = new hwdbAdd();
-  $user = new hwdbUser();
   $del = new hwdbDelete();
   $rem = new hwdbRemove();
+  $edit = new hwdbEdit();
 
-  //$add->addTable('Tests History', ['123', 'DRFF', 'Ящк', '2019-11-26 12:12:12', 'OK', 'root']);
+
+
+  $date = '2011-11-11 11:11:11';
+  $user = 'root';
+
 
   var_dump($res);
+
 ?>

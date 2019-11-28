@@ -111,7 +111,7 @@ class hwdbDelete extends hwdb
     if(count($params) != 1) { return "Неправильные аргументы!";}
 
     $tid = $this->getIDbyNameTests($params[0]);
-    if($tid === false){ return "Такого места не существует!";}
+    if($tid === false){ return "Такого теста не существует!";}
 
 
 
@@ -175,6 +175,28 @@ class hwdbDelete extends hwdb
 
     if($stat) { return "Успешно!"; } else { return "Ошибка!"; }
   }
+
+  /*
+    Удаление привязки теста к типу
+
+
+    0 - ID записи
+  */
+  function delTestsForTypes($params)
+  {
+        if(count($params) != 1) { return "Неправильные аргументы!";}
+        $stat = true;
+
+        if(!$this->checkTestsForTypesIDexists($params[0]))
+        { return "Записи с таким номером не существует!"; }
+
+        $txt = "DELETE FROM `Tests For Types` WHERE ID = ?";
+        $res = $this->queryDB($txt, $params, $stat);
+        if($stat) { return "Успешно!"; } else { return "Ошибка!"; }
+
+  }
+
+
 
 };
 

@@ -19,7 +19,6 @@ class hwdbUser extends hwdb
     $stat = true;
     $res = $this->queryDB("SELECT * FROM Users WHERE Name = ?", $name, $stat);
 
-    var_dump($stat);
 
     if(!$stat)
     {

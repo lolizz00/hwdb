@@ -1,6 +1,10 @@
 <?php
 
-include 'db.php';
+include('dbList.php');
+include('dbAdd.php');
+include('dbUser.php');
+include('dbDelete.php');
+include('dbRemove.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')
@@ -19,23 +23,16 @@ else
       $request = $_POST['request'];
       $data = json_decode($_POST['json'], true);
 
-      $db = new hwdb();
+
 
       if($request == 'getTable')
       {
+        $db = new hwdbList();
+
         if(isset($data['table']))
         {
           $res = $db->listTable($data['table']);
-
-          if($res == NULL)
-          {
-              $resp['status'] = 'Wrong table name!';
-          }
-          else
-          {
-            $resp['status'] = 'OK';
-            $resp['data'] = $res;
-          }
+          $resp['data'] = $res;
         }
         else
         {
@@ -44,28 +41,61 @@ else
       }
       else if($request == 'addTable')
       {
+        $db = new hwdbAdd();
+
         if(isset($data['table']) && isset($data['params']))
         {
           $res = $db->addTable($data['table'], $data['params'] );
+          $resp['status'] = $res;
 
-          if($res === NULL)
-          {
-            $resp['status'] = 'Wrong table name!';
-          }
-          else if($res === false)
-          {
-            $resp['status'] = 'Wrong params!';
-          }
-          else
-          {
-            $resp['status'] = 'OK';
-          }
         }
         else
         {
           $resp['status'] = 'Table name not set!';
         }
 
+      }
+      else if($request == 'delTable')
+      {
+        $db = new hwdbDelete();
+
+        if(isset($data['table']) && isset($data['params']))
+        {
+          $res = $db->deleteTable($data['table'], $data['params']);
+          $resp['status'] = $res;
+        }
+        else
+        {
+          $resp['status'] = 'Table name not set!';
+        }
+      }
+      else if($request == 'remTable')
+      {
+        $db = new hwdbRemove();
+
+        if(isset($data['table']) && isset($data['params']))
+        {
+          $res = $db->removeTable($data['table'], $data['params']);
+          $resp['status'] = $res;
+        }
+        else
+        {
+          $resp['status'] = 'Table name not set!';
+        }
+      }
+      else if($request == 'editTable')
+      {
+        $db = new hwdbEdit();
+
+        if(isset($data['table']) && isset($data['params']))
+        {
+          $res = $db->editTable($data['table'], $data['params']);
+          $resp['status'] = $res;
+        }
+        else
+        {
+          $resp['status'] = 'Table name not set!';
+        }
       }
       else
       {

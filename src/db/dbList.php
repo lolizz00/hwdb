@@ -16,11 +16,12 @@ class hwdbList extends hwdb
     $name = str_replace(" ", "", $name);
     $name =  "list" . $name;
 
+
     if(!method_exists($this, $name))
     {
       return "Неизвестная таблица!";
     }
-
+    $params = [];
     $res = call_user_func(array($this, $name), $params);
     return $res;
   }
@@ -170,6 +171,24 @@ class hwdbList extends hwdb
     }
 
   }
+
+  function listTestsForTypes()
+  {
+      $txt = " SELECT
+      tft.ID as 'Индекс записи',
+      T.Name as 'Название теста',
+      T2.Name as 'Название типа'
+      FROM `Tests For Types` tft
+      JOIN Types T2 on tft.`Type ID` = T2.ID
+      JOIN Tests T on tft.`Test ID` = T.ID ";
+
+      $stat = true;
+      $res = $this->queryDB($txt, [], $stat);
+
+      if($stat)
+      { return $res->fetchAll();} else { return $res; }
+
+}
 
 
 }

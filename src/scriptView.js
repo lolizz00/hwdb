@@ -244,14 +244,14 @@ function getTable(name)
   {
     //console.log(data);
 
-    if(data.status == "OK")
-    {
+    //if(data.status == "OK")
+    //{
       generateData(data.data);
-    }
-    else
-    {
+    //}
+    //else
+    //{
         console.log("Fuck!");
-    }
+    //}
   });
 }
 
@@ -263,7 +263,7 @@ function generateColums(data)
 
   for(var key in data[0])
   {
-    res.push({ width: 200, id: key, header: [{ text: key }]});
+    res.push({id: key, header: [{ text: key }]});
   }
 
   return res;
@@ -366,8 +366,8 @@ window.addEventListener('load', function ()
 
   //type = getParameterByName('target');
 
-  //type = 'Devices';
-  type = 'Tests History';
+  type = 'Devices';
+  //type = 'Tests History';
   //type = 'Places';
 
   generateLayout(type);

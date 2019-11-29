@@ -123,8 +123,11 @@ class hwdbAdd extends hwdb
 
    0 - Серийный номер устройства
    1 - тип устройства
+
    2 - Название места
+
    3 - Время
+
    4 - логин
 */
   function addPlacesHistory($params)
@@ -163,9 +166,13 @@ class hwdbAdd extends hwdb
 
   0 - серийник устройства
   1 - тип устройства
+
   2 - название теста
+
   3 - время
+
   4 - результат
+
   5 - логин пользователя
 */
   function addTestsHistory($params)

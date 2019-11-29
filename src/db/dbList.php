@@ -29,7 +29,10 @@ class hwdbList extends hwdb
   function listUsers()
   {
     $stat = true;
-    $res = $this->queryDB("SELECT usr.`Full Name` as 'Имя' FROM Users usr", [], $stat);
+    $res = $this->queryDB("SELECT
+        usr.`Full Name` as 'Имя',
+        usr.Name as 'Логин'
+        FROM Users usr", [], $stat);
 
     if($stat)
     {

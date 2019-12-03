@@ -114,9 +114,9 @@ class hwdbDelete extends hwdb
     if($tid === false){ return "Такого теста не существует!";}
 
 
-
     $txt =   "SET @tid = ?;
               DELETE  FROM `Tests History` WHERE `Tests History`.`Test ID` = @tid;
+              DELETE FROM `Tests For Types` WHERE `Test ID` = @tid;
               DELETE  FROM  Tests WHERE ID = @tid";
 
     $stat = true;
@@ -168,8 +168,12 @@ class hwdbDelete extends hwdb
         $this->delDevices([$name, $params[0]]);
     }
 
-
     $stat = true;
+    $txt =  "DELETE FROM `Tests For Types` WHERE `Type ID` = ?;";
+    $this->queryDB($txt, $typeID, $stat);
+
+
+
     $txt = "DELETE FROM Types WHERE Types.Name = ?";
     $res = $this->queryDB($txt, $params, $stat);
 

@@ -31,12 +31,15 @@ function getHeadersFromData(data, width)
 
 /* --- Таблицы --- */
 
-function generateViewDevices(widget)
+function generateViewDevices(widget, filter=null)
 {
   return getTable('Devices')
   .then(res =>
   {
     var data = res.data;
+
+    if(filter) { data = filterData(data, filter);}
+
 
     var grid  = new dhx.Grid(widget,
     {
@@ -51,13 +54,13 @@ function generateViewDevices(widget)
   });
 }
 
-function generateViewPlaces(widget)
+function generateViewPlaces(widget, filter=null)
 {
   return getTable('Places')
   .then(res =>
   {
     var data = res.data;
-
+    if(filter) { data = filterData(data, filter);}
     var grid  = new dhx.Grid(widget,
     {
       height: 300,
@@ -71,12 +74,13 @@ function generateViewPlaces(widget)
   });
 }
 
-function generateViewPlacesHistory(widget)
+function generateViewPlacesHistory(widget, filter=null)
 {
   return getTable('Places History')
   .then(res =>
   {
     var data = res.data;
+    if(filter) { data = filterData(data, filter);}
     width = [150, 150, 150, 150, 150, 200];
 
 
@@ -93,12 +97,13 @@ function generateViewPlacesHistory(widget)
   });
 }
 
-function generateViewTests(widget)
+function generateViewTests(widget, filter=null)
 {
   return getTable('Tests')
   .then(res =>
   {
     var data = res.data;
+    if(filter) { data = filterData(data, filter);}
     width = 200;
 
 
@@ -115,12 +120,13 @@ function generateViewTests(widget)
   });
 }
 
-function generateViewTestsForTypes(widget)
+function generateViewTestsForTypes(widget, filter=null)
 {
   return getTable('Tests For Types')
   .then(res =>
   {
     var data = res.data;
+    if(filter) { data = filterData(data, filter);}
     width = [150, 150, 150];
 
 
@@ -137,19 +143,20 @@ function generateViewTestsForTypes(widget)
   });
 }
 
-function generateViewTestHistory(widget)
+function generateViewTestHistory(widget, filter=null)
 {
   return getTable('Tests History')
   .then(res =>
   {
     var data = res.data;
+    if(filter) { data = filterData(data, filter);}
     width = [150, 150, 220, 200, 150, 150, 150];
 
 
     var grid  = new dhx.Grid(widget,
     {
-      height: 300,
-      width: 1052, // TODO
+      height: 350,
+      width: 1175, // TODO
       columns:  getHeadersFromData(data, width),
       data: data
     });
@@ -159,12 +166,13 @@ function generateViewTestHistory(widget)
   });
 }
 
-function generateViewTypes(widget)
+function generateViewTypes(widget, filter=null)
 {
   return getTable('Types')
   .then(res =>
   {
     var data = res.data;
+    if(filter) { data = filterData(data, filter);}
     width = 150;
     var grid  = new dhx.Grid(widget,
     {

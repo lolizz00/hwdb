@@ -4,11 +4,6 @@
     <!-- lib style -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>hwdb</title>
-
-
-
-
-
     <!-- lib user -->
 
     <script type="text/javascript" src="src/lib/jquery-3.4.1.js"></script>
@@ -22,6 +17,8 @@
     <script type="text/javascript" src="src/js/editWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/deleteWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/formFiller.js"></script>
+    <script type="text/javascript" src="src/js/selectFormWidgetGenerator.js"></script>
+    <script type="text/javascript" src="src/js/reportWidgetGenerator.js"></script>
 
     <!-- DHTMLX -->
     <script type="text/javascript" src="dhtmlx/codebase/richtext.js?v=1.1.1"></script>
@@ -33,42 +30,32 @@
 
   </head>
 
-
   <body >
 
 
-
-<center>
-
-  <h1> hwdb </h1>
-</br></br>
-
-      <a href="newTest.html"> Пройти тест </a>
+    <center>
       </br>
-      <a href="newPlace.html"> Переместить  </a>
-      </br>
-      </br>
+      <h1> Информация об устройствe </h1>
 
-      <a href="device.html"> Информация о устройстве </a>
-      </br>
-      <a href="pages/4.html"> Информация о типе </a>
-      </br>
+      </br></br></br>
 
-      </br>
+      <div id='devSelect'></div>
 
 
-      <a href="pages/7.html">  Управление местами </a>
-      </br>
-      <a href="pages/8.html">  Управление тестами </a>
-      </br>
+      </br></br></br>
+      <div id='devTests'></div>
 
-        </br>
+      </br></br></br>
+      <div id='devHistory'></div>
 
 
-      <a href="test.html">  Тест </a>
-      </br>
 
-</center>
+      <script>
+          generateSelectFormDevice('devSelect', selectDeviceCallBack_devInfo);
+      </script>
+
+    </center>
+
 
 
 

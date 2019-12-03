@@ -29,12 +29,13 @@ class hwdb
       $expr = $this->db->prepare($text);
       $expr->setFetchMode(PDO::FETCH_ASSOC);
       $expr->execute($params);
-      if($stat) {$stat = true; }
+      if(!is_null($stat)) {$stat = true; }
       return $expr;
     }
     catch (PDOException $e)
     {
-      if($stat) { $stat = false; }
+
+      if(!is_null($stat)) { $stat = false; }
       return $e->getMessage();
     }
   }

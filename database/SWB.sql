@@ -29,7 +29,7 @@ CREATE TABLE `Devices` (
   PRIMARY KEY (`ID`),
   KEY `Devices_Types_ID_fk` (`Type ID`),
   CONSTRAINT `Devices_Types_ID_fk` FOREIGN KEY (`Type ID`) REFERENCES `Types` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `Devices` (
 
 LOCK TABLES `Devices` WRITE;
 /*!40000 ALTER TABLE `Devices` DISABLE KEYS */;
-INSERT INTO `Devices` VALUES (0,NULL,'Неизвестное устройство'),(1,1,'111'),(45,1,'222'),(46,36,'111'),(47,8,'111');
+INSERT INTO `Devices` VALUES (0,NULL,'Неизвестное устройство'),(52,45,'111'),(53,45,'222'),(54,45,'333');
 /*!40000 ALTER TABLE `Devices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ CREATE TABLE `Places` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Places_Name_uindex` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `Places` (
 
 LOCK TABLES `Places` WRITE;
 /*!40000 ALTER TABLE `Places` DISABLE KEYS */;
-INSERT INTO `Places` VALUES (0,'Неизвестное место'),(4,'Склад 2'),(3,'Склад хуяд');
+INSERT INTO `Places` VALUES (18,'БУУУУЙ'),(17,'ДУУУУУЙ'),(0,'Неизвестное место'),(4,'Склад'),(3,'Склад хуяд'),(16,'ХУУУУЙ');
 /*!40000 ALTER TABLE `Places` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,7 +78,7 @@ CREATE TABLE `Places History` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Device ID` int(11) DEFAULT NULL,
   `Place ID` int(11) DEFAULT NULL,
-  `Time` datetime NOT NULL,
+  `Time` date NOT NULL,
   `User ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Places History_Devices_ID_fk` (`Device ID`),
@@ -87,7 +87,7 @@ CREATE TABLE `Places History` (
   CONSTRAINT `Places History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
   CONSTRAINT `Places History_Places_ID_fk` FOREIGN KEY (`Place ID`) REFERENCES `Places` (`ID`),
   CONSTRAINT `Places History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `Places History` (
 
 LOCK TABLES `Places History` WRITE;
 /*!40000 ALTER TABLE `Places History` DISABLE KEYS */;
-INSERT INTO `Places History` VALUES (24,46,3,'2011-11-11 11:11:11',61);
+INSERT INTO `Places History` VALUES (35,52,17,'2019-12-03',143),(36,52,17,'2019-12-03',143),(37,52,17,'2019-12-03',143),(38,53,4,'2019-12-03',152),(39,53,4,'2019-12-03',152),(40,53,4,'2019-12-03',152),(41,54,3,'2019-12-03',61),(42,54,3,'2019-12-03',61),(43,54,3,'2019-12-03',61);
 /*!40000 ALTER TABLE `Places History` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `Tests` (
   `Description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Test_Name_uindex` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `Tests` (
 
 LOCK TABLES `Tests` WRITE;
 /*!40000 ALTER TABLE `Tests` DISABLE KEYS */;
-INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','null'),(2,'Проверка Электроники','Позвать Роберта'),(14,'Хуябли','-'),(17,'Хуй','1');
+INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','null'),(2,'Проверка Электроники','Позвать Роберта'),(18,'Какой то тест','Какое то описание'),(25,'Тест','А может и не ест ядей');
 /*!40000 ALTER TABLE `Tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `Tests For Types` (
   KEY `Tests For Types_pk_2` (`Type ID`),
   CONSTRAINT `Tests For Types_Tests_ID_fk` FOREIGN KEY (`Test ID`) REFERENCES `Tests` (`ID`),
   CONSTRAINT `Tests For Types_Types_ID_fk` FOREIGN KEY (`Type ID`) REFERENCES `Types` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `Tests For Types` (
 
 LOCK TABLES `Tests For Types` WRITE;
 /*!40000 ALTER TABLE `Tests For Types` DISABLE KEYS */;
-INSERT INTO `Tests For Types` VALUES (11,36,14),(24,36,17);
+INSERT INTO `Tests For Types` VALUES (28,1,25),(29,8,25);
 /*!40000 ALTER TABLE `Tests For Types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `Tests History` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Device ID` int(11) DEFAULT NULL,
   `Test ID` int(11) DEFAULT NULL,
-  `Time` datetime NOT NULL,
+  `Time` date NOT NULL,
   `Result` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `User ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -177,7 +177,7 @@ CREATE TABLE `Tests History` (
   CONSTRAINT `Tests History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
   CONSTRAINT `Tests History_Test_ID_fk` FOREIGN KEY (`Test ID`) REFERENCES `Tests` (`ID`),
   CONSTRAINT `Tests History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `Tests History` (
 
 LOCK TABLES `Tests History` WRITE;
 /*!40000 ALTER TABLE `Tests History` DISABLE KEYS */;
-INSERT INTO `Tests History` VALUES (38,46,14,'2019-11-26 12:12:12','OK',61),(39,46,14,'2019-11-26 12:12:12','OK',61),(40,46,14,'2019-11-26 12:12:12','OK',61),(41,46,14,'2019-11-26 12:12:12','OK',61),(42,46,14,'2019-11-26 12:12:12','OK',61),(43,46,14,'2019-11-26 12:12:12','OK',61),(44,46,14,'2019-11-26 12:12:12','OK',61),(45,46,14,'2019-11-26 12:12:12','OK',61),(46,46,14,'2011-11-11 11:11:11','хуй',61);
+INSERT INTO `Tests History` VALUES (78,52,1,'2019-12-03','ОК',143),(79,52,1,'2019-12-03','ОК',143),(80,52,1,'2019-12-03','ОК',143),(81,53,2,'2019-12-03','Частично',61),(82,53,2,'2019-12-03','Частично',61),(83,53,2,'2019-12-03','Частично',61),(84,54,25,'2019-12-03','+-',152),(85,54,25,'2019-12-03','+-',152),(86,54,25,'2019-12-03','+-',152);
 /*!40000 ALTER TABLE `Tests History` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +202,7 @@ CREATE TABLE `Types` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `Types` (
 
 LOCK TABLES `Types` WRITE;
 /*!40000 ALTER TABLE `Types` DISABLE KEYS */;
-INSERT INTO `Types` VALUES (32,'777'),(1,'RSR'),(36,'SWB'),(8,'SWB_PEX'),(31,'SWB_PX'),(11,'TEST1'),(0,'Неизвестный тип'),(10,'Хуй');
+INSERT INTO `Types` VALUES (32,'777'),(44,'jjj'),(1,'RSR'),(45,'SWB'),(8,'SWB_PEX'),(31,'SWB_PX'),(11,'TEST1'),(38,'Какой то тип'),(0,'Неизвестный тип'),(10,'Хуй');
 /*!40000 ALTER TABLE `Types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,4 +251,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-28 22:34:20
+-- Dump completed on 2019-12-03 13:24:38

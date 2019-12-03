@@ -9,8 +9,10 @@ function generateComboListDevices(data)
   result = [];
   for(var i = 0; i < data.length;i++)
   {
-    tmp = data[i]['Серийный номер'] + '(' + data[i]['Тип устройства'] + ')';
-    result.push({id: tmp, value: tmp});
+    tmp_name = data[i]['Серийный номер'] + '(' + data[i]['Тип устройства'] + ')';
+    tmp_id = data[i]['Серийный номер'] + ' ' + data[i]['Тип устройства'];
+
+    result.push({id: tmp_id, value: tmp_name});
   }
 
   return result;
@@ -54,17 +56,18 @@ function generateFormDevices(widget)
 
 
     var form  = new dhx.Form(widget, {
+      cellCss: 'dhx_widget--bordered',
       height: 200,
       width: 500,
       rows: [
       {
-        id: "serialInput",
+        id: "serial",
         type: "input",
         label: "Серийный номер",
         required: true
       },
       {
-        id: "typeBox",
+        id: "type",
         type: "combo",
         label: "Тип устройства",
         data : generateComboList(types, 'Имя типа'),
@@ -86,11 +89,12 @@ function generateFormDevices(widget)
 function generateFormPlaces(widget)
 {
   var form  = new dhx.Form(widget, {
+    cellCss: 'dhx_widget--bordered',
     height: 150,
     width: 500,
     rows: [
       {
-        id: "NameInput",
+        id: "name",
         type: "input",
         label: "Название места",
         required: true
@@ -113,6 +117,7 @@ function generateFormPlacesHistory(widget)
   var devices;
   var places;
   var users;
+
   return getTable('Devices')
   .then(res =>
   {
@@ -131,13 +136,14 @@ function generateFormPlacesHistory(widget)
     users = res.data;
 
     var form  = new dhx.Form(widget, {
+      cellCss: 'dhx_widget--bordered',
       height: 500,
       width: 500,
       rows: [
         {
           id: "devBox",
           type: "combo",
-          label: "Название устройста",
+          label: "Название устройства",
           data : generateComboListDevices(devices),
           required: true
         },
@@ -152,8 +158,7 @@ function generateFormPlacesHistory(widget)
             id: "dateBox",
             type: "datepicker",
             label: "Время",
-            dateFormat: "%Y-%m-%d %G:%i:%s",
-            timePicker: true,
+            dateFormat: "%Y-%m-%d",
             value: new Date(),
             required: true
         },
@@ -182,6 +187,7 @@ function generateFormPlacesHistory(widget)
 function generateFormTests(widget)
 {
   var form  = new dhx.Form(widget, {
+    cellCss: 'dhx_widget--bordered',
     height: 300,
     width: 500,
     rows: [
@@ -205,6 +211,8 @@ function generateFormTests(widget)
       }
     ]
   });
+
+  return form;
 }
 
 function generateFormTestsForTypes(widget)
@@ -223,6 +231,7 @@ function generateFormTestsForTypes(widget)
     types = res.data;
 
     var form  = new dhx.Form(widget, {
+      cellCss: 'dhx_widget--bordered',
       height: 300,
       width: 500,
       rows: [
@@ -279,20 +288,21 @@ function generateFormTestsHistory(widget)
     users = res.data;
 
     var form  = new dhx.Form(widget, {
+      cellCss: 'dhx_widget--bordered',
       height: 500,
       width: 500,
       rows: [
         {
           id: "devBox",
           type: "combo",
-          label: "Название устройста",
+          label: "Название устройства",
           data : generateComboListDevices(devices),
           required: true
         },
         {
             id: "testBox",
             type: "combo",
-            label: "Название места",
+            label: "Название  теста",
             data : generateComboList(tests, 'Название теста'),
             required: true
         },
@@ -300,8 +310,7 @@ function generateFormTestsHistory(widget)
             id: "dateBox",
             type: "datepicker",
             label: "Время",
-            dateFormat: "%Y-%m-%d %G:%i:%s",
-            timePicker: true,
+            dateFormat: "%Y-%m-%d",
             value: new Date(),
             required: true
         },
@@ -336,7 +345,8 @@ function generateFormTestsHistory(widget)
 function generateFormTypes(widget)
 {
   var form  = new dhx.Form(widget, {
-    height: 150,
+    cellCss: 'dhx_widget--bordered',
+    height: 200,
     width: 500,
     rows: [
       {
@@ -350,7 +360,8 @@ function generateFormTypes(widget)
         value: "Применить",
         size: "medium",
         id : "sendForm"
-      }
+      },
+
     ]
   });
 

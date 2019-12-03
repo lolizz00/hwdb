@@ -146,7 +146,7 @@ class hwdbList extends hwdb
     $txt = "SELECT
       th.ID as 'Номер записи',
       T.Name as 'Название теста',
-      D.`Serial Code` as 'Серийный код устройства',
+      D.`Serial Code` as 'Серийный номер',
       T2.Name as 'Тип устройства',
       th.Result as 'Результат теста',
       th.Time as 'Время теста',

@@ -95,9 +95,9 @@ class hwdbRemove extends hwdb
         if($tid === false){ return "Такого места не существует!";}
 
 
-
         $txt =   "SET @tid = ?;
-                  UPDATE  `Tests History` SET `Test ID` = NULL WHERE `Test ID` = @tid;
+                  UPDATE  `Tests History`   SET `Test ID` = NULL WHERE `Test ID` = @tid;
+                DELETE FROM `Tests For Types` WHERE `Test ID` = @tid;
                   DELETE  FROM  Tests WHERE ID = @tid";
 
         $stat = true;
@@ -128,16 +128,16 @@ class hwdbRemove extends hwdb
               $this->remDevices([$name, $params[0]]);
           }
 
-
           $stat = true;
+          $txt =   "DELETE FROM `Tests For Types` WHERE `Type ID` = ?;";
+          $this->queryDB($txt, $typeID, $stat);
+
+
           $txt = "DELETE FROM Types WHERE Types.Name = ?";
           $res = $this->queryDB($txt, $params, $stat);
 
           if($stat) { return "Успешно!"; } else { return "Ошибка!"; }
         }
-
-
-
 
 
 }

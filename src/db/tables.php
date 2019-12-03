@@ -5,7 +5,7 @@ include('dbAdd.php');
 include('dbUser.php');
 include('dbDelete.php');
 include('dbRemove.php');
-
+include('dbEdit.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
@@ -45,8 +45,17 @@ else
 
         if(isset($data['table']) && isset($data['params']))
         {
-          $res = $db->addTable($data['table'], $data['params'] );
-          $resp['status'] = $res;
+          if(!is_array($data['params']))
+          {
+            $resp['status'] = 'Wrong params format!';
+          }
+          else
+          {
+            $res = $db->addTable($data['table'], $data['params'] );
+            $resp['status'] = $res;
+          }
+
+
 
         }
         else
@@ -61,8 +70,15 @@ else
 
         if(isset($data['table']) && isset($data['params']))
         {
-          $res = $db->deleteTable($data['table'], $data['params']);
-          $resp['status'] = $res;
+          if(!is_array($data['params']))
+          {
+            $resp['status'] = 'Wrong params format!';
+          }
+          else
+          {
+            $res = $db->deleteTable($data['table'], $data['params']);
+            $resp['status'] = $res;
+          }
         }
         else
         {
@@ -75,8 +91,15 @@ else
 
         if(isset($data['table']) && isset($data['params']))
         {
-          $res = $db->removeTable($data['table'], $data['params']);
-          $resp['status'] = $res;
+          if(!is_array($data['params']))
+          {
+            $resp['status'] = 'Wrong params format!';
+          }
+          else
+          {
+            $res = $db->removeTable($data['table'], $data['params']);
+            $resp['status'] = $res;
+          }
         }
         else
         {
@@ -89,8 +112,15 @@ else
 
         if(isset($data['table']) && isset($data['params']))
         {
-          $res = $db->editTable($data['table'], $data['params']);
-          $resp['status'] = $res;
+          if(!is_array($data['params']))
+          {
+            $resp['status'] = 'Wrong params format!';
+          }
+          else
+          {
+            $res = $db->editTable($data['table'], $data['params']);
+            $resp['status'] = $res;
+          }
         }
         else
         {

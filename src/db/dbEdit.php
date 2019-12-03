@@ -63,6 +63,7 @@ class hwdbEdit extends hwdb
     Изменение мест
 
     0 - Name
+
     1 - новое Name
   */
   function editPlaces($params)
@@ -81,6 +82,7 @@ class hwdbEdit extends hwdb
     Изменение таблицы истории мест
 
     0 - номер записи
+
     1 - серийник устройства
     2 - тип устройства
     3 - название места
@@ -242,6 +244,7 @@ class hwdbEdit extends hwdb
     $res = $this->queryDB($txt, [$params[1] , $params[2], $params[3], $usrID], $stat);
     if($stat) { return "Успешно!"; } else { return "Ошибка!"; }
   }
+
 
 
 }

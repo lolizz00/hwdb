@@ -4,11 +4,6 @@
     <!-- lib style -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>hwdb</title>
-
-
-
-
-
     <!-- lib user -->
 
     <script type="text/javascript" src="src/lib/jquery-3.4.1.js"></script>
@@ -22,6 +17,8 @@
     <script type="text/javascript" src="src/js/editWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/deleteWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/formFiller.js"></script>
+    <script type="text/javascript" src="src/js/selectFormWidgetGenerator.js"></script>
+    <script type="text/javascript" src="src/js/reportWidgetGenerator.js"></script>
 
     <!-- DHTMLX -->
     <script type="text/javascript" src="dhtmlx/codebase/richtext.js?v=1.1.1"></script>
@@ -33,52 +30,34 @@
 
   </head>
 
-
   <body >
 
 
-
-<center>
-
-  <h1> hwdb </h1>
-</br></br>
-
-      <a href="newTest.html"> Пройти тест --- OK </a>
+    <center>
       </br>
-      <a href="newPlace.html"> Переместить --- OK </a>
-      </br>
-      </br>
+      <h1> Информация о типе </h1>
 
-      <a href="device.html"> Информация о устройстве ---- +- </a>
-      </br>
-      <a href="type.html"> Информация о типе ---- +- </a>
-      </br>
+      </br></br></br>
 
-      </br>
+      <div id='typeSelect'></div>
 
-      <a href="createTest.html"> Добавить тест  ---- OK</a>
-      </br>
-      <a href="createPlace.html">    Добавить место </a>
-      </br>
-      <a href="createType.html">   Добавить тип </a>
-      </br>
+    </br></br></br>
+    <div id='newTypeTests'></div>
 
-      </br>
+    </br></br></br>
+    <div id='typeTests'></div>
+
+    </center>
 
 
-
-      <a href="pages/7.html">  Управление местами </a>
-      </br>
-      <a href="tests.html">  Управление тестами --- OK </a>
-      </br>
-
-        </br>
+      <script>
+          $('#newTypeTests').append('<b>Добавить новую зависимость</b>');
+          generateAddTestsForTypesWidget('newTypeTests');
+          generateSelectFormType('typeSelect', selectTypeCallBack);
+      </script>
 
 
-      <a href="_test.html">  Тест </a>
-      </br>
 
-</center>
 
 
 

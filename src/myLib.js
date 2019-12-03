@@ -18,6 +18,23 @@ function sendPOST(data, target, _request, callback)
 }
 
 
+function clearWidget(wid)
+{
+  $('#' + wid).html('');
+}
+
+function checkExists(wid)
+{
+  if($('#' + wid).length)
+  {
+      return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 function sendPOST_prom(data, target, _request)
 {
     return $.ajax({
@@ -84,6 +101,17 @@ function splitDevID(id)
     'Тип устройства' :  id[1]
   };
 
+}
+
+
+function dictGetValuesKey(dict, key)
+{
+  var res = [];
+  for(var i =0; i < dict.length;i++)
+  {
+    res.push(dict[i][key]);
+  }
+  return res;
 }
 
 function getCurrUser_prom()

@@ -176,6 +176,7 @@ function generateAddTestsWidget(widget)
 
         var vals = form.getValue();
         vals = formValuesToArray(vals);
+        vals[1] = getEditor();
 
         addTable('Tests', vals)
         .then(res =>

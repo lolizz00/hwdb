@@ -101,3 +101,23 @@ function filterTable(table, filter)
 
   });
 }
+
+
+
+function getLastRowTestsHistory(data)
+{
+  if(data == null){return null;}
+
+  data =  data.sort( (prev, next) => {
+      prev = new Date(prev['Время теста']);
+      next = new Date(next['Время теста']);
+      return prev < next;
+  });
+
+  return data[0];
+}
+
+function getLastRowPlacesHistory(data)
+{
+  return null;
+}

@@ -21,13 +21,12 @@
     <script type="text/javascript" src="src/js/reportWidgetGenerator.js"></script>
 
     <!-- DHTMLX -->
-    <script type="text/javascript" src="dhtmlx/codebase/richtext.js?v=1.1.1"></script>
-    <link rel="stylesheet" href="dhtmlx/codebase/richtext.css?v=1.1.1">
-
+    <link rel="stylesheet" href="dhtmlx/codebase/suite.css?v=6.1.7">
     <script type="text/javascript" src="dhtmlx/codebase/suite.js?v=6.1.7"></script>
 
-    <link rel="stylesheet" href="dhtmlx/codebase/suite.css?v=6.1.7">
-
+    <!-- editor -->
+    <script  src="ckeditor/ckeditor.js"></script>
+    <script  src="src/js/editorDriver.js"></script>
   </head>
 
   <body >
@@ -35,29 +34,18 @@
 
     <center>
       </br>
-      <h1> Информация об устройствe </h1>
+      <h1> Управление тестами </h1>
 
       </br></br></br>
 
-      <div id='devSelect'></div>
-
+      <div id='testsSelect'></div>
       </br></br></br>
-      <div id='testReport'></div>
 
-      <details>
-
-      <summary><h3>История жизни</h3></summary>
-
+      <div id='testsControl'></div>
       </br></br></br>
-      <div id='devTests'></div>
-
-      </br></br></br>
-      <div id='devHistory'></div>
-      </details>
-
 
       <script>
-          generateSelectFormDevice('devSelect', selectDeviceCallBack_devInfo);
+        generateSelectFormTest('testsSelect', selectTestCallBack);
       </script>
 
     </center>

@@ -47,8 +47,10 @@ function fillTestsEditWidget(widget, params)
   {
       widget.setValue({
           nameInput : data['Название теста'],
-          descInput: data["Описание теста"]
       });
+
+      setEditor( data["Описание теста"]);
+
   });
 
 }

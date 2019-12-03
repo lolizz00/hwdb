@@ -101,6 +101,78 @@ INSERT INTO `Places History` VALUES (35,52,17,'2019-12-03',143),(36,52,17,'2019-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Revisions`
+--
+
+DROP TABLE IF EXISTS `Revisions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Revisions` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Revisions_Name_uindex` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Revisions`
+--
+
+LOCK TABLES `Revisions` WRITE;
+/*!40000 ALTER TABLE `Revisions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Revisions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Revisions For Types`
+--
+
+DROP TABLE IF EXISTS `Revisions For Types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Revisions For Types` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Revision ID` int(11) DEFAULT NULL,
+  `Type ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Revisions For Types`
+--
+
+LOCK TABLES `Revisions For Types` WRITE;
+/*!40000 ALTER TABLE `Revisions For Types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Revisions For Types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Revisions History`
+--
+
+DROP TABLE IF EXISTS `Revisions History`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Revisions History` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Revision ID` int(11) NOT NULL,
+  `Device ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Revisions History`
+--
+
+LOCK TABLES `Revisions History` WRITE;
+/*!40000 ALTER TABLE `Revisions History` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Revisions History` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Tests`
 --
 
@@ -110,10 +182,10 @@ DROP TABLE IF EXISTS `Tests`;
 CREATE TABLE `Tests` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Description` varchar(5000) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Test_Name_uindex` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +194,7 @@ CREATE TABLE `Tests` (
 
 LOCK TABLES `Tests` WRITE;
 /*!40000 ALTER TABLE `Tests` DISABLE KEYS */;
-INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','null'),(2,'Проверка Электроники','Позвать Роберта'),(18,'Какой то тест','Какое то описание'),(25,'Тест','А может и не ест ядей');
+INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','<p><strong>ааааааа</strong></p>\n'),(2,'Проверка Электроники','<p><strong>Позвать Роберта</strong></p>\n'),(18,'Какой то тест','<p><strong>Какое то описание</strong></p>\n'),(25,'Тест','<p><strong>А может и не ест ядей</strong></p>\n'),(33,'Тест с html описанием','<ol>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n	<li>3</li>\n</ol>\n\n<blockquote>\n<p>11111</p>\n</blockquote>\n\n<p>&THORN;&egrave;</p>\n\n<p>&nbsp;</p>\n\n<p><s>аааааа</s></p>\n'),(35,'Второй тест с описанием','<p><strong>123</strong></p>\n\n<p><em><strong>321</strong></em></p>\n\n<blockquote>\n<p><em><strong>123</strong></em></p>\n</blockquote>\n\n<ul>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n</ul>\n'),(36,'Тест с картинкой','<p><img alt=\"\" src=\"https://cdn.pixabay.com/photo/2017/11/02/12/05/lama-2910939_1280.jpg\" style=\"height:214px; width:330px\" /></p>\n');
 /*!40000 ALTER TABLE `Tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +215,7 @@ CREATE TABLE `Tests For Types` (
   KEY `Tests For Types_pk_2` (`Type ID`),
   CONSTRAINT `Tests For Types_Tests_ID_fk` FOREIGN KEY (`Test ID`) REFERENCES `Tests` (`ID`),
   CONSTRAINT `Tests For Types_Types_ID_fk` FOREIGN KEY (`Type ID`) REFERENCES `Types` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +224,7 @@ CREATE TABLE `Tests For Types` (
 
 LOCK TABLES `Tests For Types` WRITE;
 /*!40000 ALTER TABLE `Tests For Types` DISABLE KEYS */;
-INSERT INTO `Tests For Types` VALUES (28,1,25),(29,8,25);
+INSERT INTO `Tests For Types` VALUES (31,45,1),(32,45,18),(33,45,2),(34,45,25);
 /*!40000 ALTER TABLE `Tests For Types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +258,7 @@ CREATE TABLE `Tests History` (
 
 LOCK TABLES `Tests History` WRITE;
 /*!40000 ALTER TABLE `Tests History` DISABLE KEYS */;
-INSERT INTO `Tests History` VALUES (78,52,1,'2019-12-03','ОК',143),(79,52,1,'2019-12-03','ОК',143),(80,52,1,'2019-12-03','ОК',143),(81,53,2,'2019-12-03','Частично',61),(82,53,2,'2019-12-03','Частично',61),(83,53,2,'2019-12-03','Частично',61),(84,54,25,'2019-12-03','+-',152),(85,54,25,'2019-12-03','+-',152),(86,54,25,'2019-12-03','+-',152);
+INSERT INTO `Tests History` VALUES (78,52,1,'2019-12-03','ОК',143),(79,52,1,'2019-12-02','ОК',143),(80,52,1,'2019-12-01','ОК',143),(81,53,2,'2019-12-03','Частично',61),(82,53,2,'2019-12-02','Частично',61),(83,53,2,'2019-12-01','Частично',61),(84,54,25,'2019-12-03','+-',152),(85,54,25,'2019-12-02','+-',152),(86,54,25,'2019-12-01','+-',152);
 /*!40000 ALTER TABLE `Tests History` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-03 13:24:38
+-- Dump completed on 2019-12-03 21:52:20

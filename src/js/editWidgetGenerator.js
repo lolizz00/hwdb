@@ -186,6 +186,7 @@ function generateEditTests(widget, data)
 
       var vals = form.getValue();
       vals = formValuesToArray(vals);
+      vals[1] = getEditor();
 
 
       editTable('Tests', data, vals)

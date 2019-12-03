@@ -186,9 +186,17 @@ function generateFormPlacesHistory(widget)
 
 function generateFormTests(widget)
 {
-  var form  = new dhx.Form(widget, {
+
+  /*
+    А это можно рисовать заново
+  */
+  formName = widget + '_form';
+  clearWidget(formName);
+  $('#' + widget).append("<div id='"+  formName +"'></div>");
+
+  var form  = new dhx.Form(formName, {
     cellCss: 'dhx_widget--bordered',
-    height: 300,
+    height: 150,
     width: 500,
     rows: [
       {
@@ -197,12 +205,12 @@ function generateFormTests(widget)
         label: "Название теста",
         required: true
       },
-      {
-        id: "descInput", /* TODO, надо редактор */
+      /*{
+        id: "descInput", /
         type: "textarea",
         label: "Описание теста",
         required: true
-      },
+      },*/
       {
         type: "button",
         value: "Применить",
@@ -211,6 +219,20 @@ function generateFormTests(widget)
       }
     ]
   });
+
+  $('#' + widget).append("</br></br><div id='descEditor'></div>");
+
+  /*
+    Нельзя перегенирировать - глючит
+  */
+  if(!checkExists('editor'))
+  {
+    createEditor('descEditor', 'Редактор описания', {
+      width: "800px",
+      height: "300px",
+      resize_enabled: false
+    });
+  }
 
   return form;
 }

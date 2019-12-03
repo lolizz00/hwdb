@@ -4,6 +4,11 @@
     <!-- lib style -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>hwdb</title>
+
+
+
+
+
     <!-- lib user -->
 
     <script type="text/javascript" src="src/lib/jquery-3.4.1.js"></script>
@@ -17,53 +22,31 @@
     <script type="text/javascript" src="src/js/editWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/deleteWidgetGenerator.js"></script>
     <script type="text/javascript" src="src/js/formFiller.js"></script>
-    <script type="text/javascript" src="src/js/selectFormWidgetGenerator.js"></script>
-    <script type="text/javascript" src="src/js/reportWidgetGenerator.js"></script>
 
     <!-- DHTMLX -->
-    <script type="text/javascript" src="dhtmlx/codebase/richtext.js?v=1.1.1"></script>
-    <link rel="stylesheet" href="dhtmlx/codebase/richtext.css?v=1.1.1">
-
+    <link rel="stylesheet" href="dhtmlx/codebase/suite.css?v=6.1.7">
     <script type="text/javascript" src="dhtmlx/codebase/suite.js?v=6.1.7"></script>
 
-    <link rel="stylesheet" href="dhtmlx/codebase/suite.css?v=6.1.7">
+
+    <script  src="ckeditor/ckeditor.js"></script>
+    <script  src="src/js/editorDriver.js"></script>
+
 
   </head>
 
-  <body >
 
+  <body>
 
-    <center>
-      </br>
-      <h1> Информация об устройствe </h1>
+    <style>
+    </style>
 
-      </br></br></br>
-
-      <div id='devSelect'></div>
-
-      </br></br></br>
-      <div id='testReport'></div>
-
-      <details>
-
-      <summary><h3>История жизни</h3></summary>
-
-      </br></br></br>
-      <div id='devTests'></div>
-
-      </br></br></br>
-      <div id='devHistory'></div>
-      </details>
-
+      <center>
+      <textarea id='editor'></textarea>
+      </center>
 
       <script>
-          generateSelectFormDevice('devSelect', selectDeviceCallBack_devInfo);
+
       </script>
-
-    </center>
-
-
-
 
   </body>
 </html>

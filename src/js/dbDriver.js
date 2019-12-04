@@ -46,6 +46,14 @@ function editTable(name, selector, params)
 }
 
 
+function makeBackup()
+{
+  target = 'backup.php';
+  request = 'makeBackup';
+  return sendPOST_prom([], target, request);
+}
+
+
 function loginByName(name)
 {
   return filterTable('Users', {'Имя' : name}).then(res => {
@@ -58,7 +66,7 @@ function loginByName(name)
 /*
   Фильтрация уже существующей таблицы
 */
-function filterData(data, filter)
+function filterData(data, filter, noArr=false)
 {
   var keys = Object.keys(filter);
   var res = [];
@@ -83,7 +91,10 @@ function filterData(data, filter)
 
   if(res.length == 1)
   {
-    res = res[0];
+    if(!noArr)
+    {
+      res = res[0];
+    }
   }
 
 
@@ -107,6 +118,11 @@ function filterTable(table, filter)
 function getLastRowTestsHistory(data)
 {
   if(data == null){return null;}
+
+  if(data.length == undefined)
+  {
+    return data;
+  }
 
   data =  data.sort( (prev, next) => {
       prev = new Date(prev['Время теста']);

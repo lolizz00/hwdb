@@ -1,1 +1,1 @@
-mysqldump -uroot -psimonka13 SWB > SWB.sql
+mysqldump -uroot -psimonka13 SWB > /srv/http/database/SWB.sql

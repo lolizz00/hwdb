@@ -49,6 +49,7 @@ function fillTestsEditWidget(widget, params)
           nameInput : data['Название теста'],
       });
 
+      
       setEditor( data["Описание теста"]);
 
   });

@@ -178,6 +178,7 @@ function generateDeletePlacesHistoryWidget(data, finishCallback=trayCallback)
   });
 }
 
+
 /*
   data[0] - название теста
 */

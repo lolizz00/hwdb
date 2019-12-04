@@ -54,7 +54,7 @@ CREATE TABLE `Places` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Places_Name_uindex` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `Places` (
 
 LOCK TABLES `Places` WRITE;
 /*!40000 ALTER TABLE `Places` DISABLE KEYS */;
-INSERT INTO `Places` VALUES (18,'БУУУУЙ'),(17,'ДУУУУУЙ'),(0,'Неизвестное место'),(4,'Склад'),(3,'Склад хуяд'),(16,'ХУУУУЙ');
+INSERT INTO `Places` VALUES (17,'ДУУУУУЙ'),(16,'Красивое место'),(0,'Неизвестное место'),(4,'Склад'),(3,'Склад на 5 этаже'),(21,'Шкаф');
 /*!40000 ALTER TABLE `Places` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ CREATE TABLE `Places History` (
   CONSTRAINT `Places History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
   CONSTRAINT `Places History_Places_ID_fk` FOREIGN KEY (`Place ID`) REFERENCES `Places` (`ID`),
   CONSTRAINT `Places History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,8 +96,32 @@ CREATE TABLE `Places History` (
 
 LOCK TABLES `Places History` WRITE;
 /*!40000 ALTER TABLE `Places History` DISABLE KEYS */;
-INSERT INTO `Places History` VALUES (35,52,17,'2019-12-03',143),(36,52,17,'2019-12-03',143),(37,52,17,'2019-12-03',143),(38,53,4,'2019-12-03',152),(39,53,4,'2019-12-03',152),(40,53,4,'2019-12-03',152),(41,54,3,'2019-12-03',61),(42,54,3,'2019-12-03',61),(43,54,3,'2019-12-03',61);
 /*!40000 ALTER TABLE `Places History` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Revision Status`
+--
+
+DROP TABLE IF EXISTS `Revision Status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Revision Status` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Value` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Revision Status_Value_uindex` (`Value`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Revision Status`
+--
+
+LOCK TABLES `Revision Status` WRITE;
+/*!40000 ALTER TABLE `Revision Status` DISABLE KEYS */;
+INSERT INTO `Revision Status` VALUES (1,'Выполнено'),(2,'Не выполнено');
+/*!40000 ALTER TABLE `Revision Status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -110,6 +134,7 @@ DROP TABLE IF EXISTS `Revisions`;
 CREATE TABLE `Revisions` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Desription` varchar(5000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Revisions_Name_uindex` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -135,7 +160,11 @@ CREATE TABLE `Revisions For Types` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Revision ID` int(11) DEFAULT NULL,
   `Type ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `Revisions For Types_Revision ID_index` (`Revision ID`),
+  KEY `Revisions For Types_Type ID_index` (`Type ID`),
+  CONSTRAINT `Revisions For Types_Revisions_ID_fk` FOREIGN KEY (`Revision ID`) REFERENCES `Revisions` (`ID`),
+  CONSTRAINT `Revisions For Types_Types_ID_fk` FOREIGN KEY (`Type ID`) REFERENCES `Types` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,7 +188,20 @@ CREATE TABLE `Revisions History` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Revision ID` int(11) NOT NULL,
   `Device ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Status ID` int(11) NOT NULL,
+  `Time` date DEFAULT NULL,
+  `Comment` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Logfile` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `User ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Revisions History_Device ID_index` (`Device ID`),
+  KEY `Revisions History_Revision ID_index` (`Revision ID`),
+  KEY `Revisions History_Status ID_index` (`Status ID`),
+  KEY `Revisions History_User ID_index` (`User ID`),
+  CONSTRAINT `Revisions History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
+  CONSTRAINT `Revisions History_Revision Status_ID_fk` FOREIGN KEY (`Status ID`) REFERENCES `Revision Status` (`ID`),
+  CONSTRAINT `Revisions History_Revisions_ID_fk` FOREIGN KEY (`Revision ID`) REFERENCES `Revisions` (`ID`),
+  CONSTRAINT `Revisions History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,6 +212,33 @@ CREATE TABLE `Revisions History` (
 LOCK TABLES `Revisions History` WRITE;
 /*!40000 ALTER TABLE `Revisions History` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Revisions History` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Software Versions`
+--
+
+DROP TABLE IF EXISTS `Software Versions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Software Versions` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Version name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Type ID` int(11) DEFAULT NULL,
+  `Description` varchar(5000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `File` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Ссылка на файл прошивки',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Software Versions`
+--
+
+LOCK TABLES `Software Versions` WRITE;
+/*!40000 ALTER TABLE `Software Versions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Software Versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -185,7 +254,7 @@ CREATE TABLE `Tests` (
   `Description` varchar(5000) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Test_Name_uindex` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +263,7 @@ CREATE TABLE `Tests` (
 
 LOCK TABLES `Tests` WRITE;
 /*!40000 ALTER TABLE `Tests` DISABLE KEYS */;
-INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','<p><strong>ааааааа</strong></p>\n'),(2,'Проверка Электроники','<p><strong>Позвать Роберта</strong></p>\n'),(18,'Какой то тест','<p><strong>Какое то описание</strong></p>\n'),(25,'Тест','<p><strong>А может и не ест ядей</strong></p>\n'),(33,'Тест с html описанием','<ol>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n	<li>3</li>\n</ol>\n\n<blockquote>\n<p>11111</p>\n</blockquote>\n\n<p>&THORN;&egrave;</p>\n\n<p>&nbsp;</p>\n\n<p><s>аааааа</s></p>\n'),(35,'Второй тест с описанием','<p><strong>123</strong></p>\n\n<p><em><strong>321</strong></em></p>\n\n<blockquote>\n<p><em><strong>123</strong></em></p>\n</blockquote>\n\n<ul>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n</ul>\n'),(36,'Тест с картинкой','<p><img alt=\"\" src=\"https://cdn.pixabay.com/photo/2017/11/02/12/05/lama-2910939_1280.jpg\" style=\"height:214px; width:330px\" /></p>\n');
+INSERT INTO `Tests` VALUES (0,'Неизвестный тест','-'),(1,'Базовая проверка','<p><strong>ааааааа</strong></p>\n'),(2,'Проверка Электроники','<p><strong>Позвать Роберта</strong></p>\n'),(18,'Какой то тест','<p><strong>Какое то описание</strong></p>\n'),(25,'Тест','<p><strong>А может и не ест ядей</strong></p>\n'),(33,'Тест с html описанием','<ol>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n	<li>3</li>\n</ol>\n\n<blockquote>\n<p>11111</p>\n</blockquote>\n\n<p>&THORN;&egrave;</p>\n\n<p>&nbsp;</p>\n\n<p><s>аааааа</s></p>\n'),(35,'Второй тест с описанием','<p><strong>123</strong></p>\n\n<p><em><strong>321</strong></em></p>\n\n<blockquote>\n<p><em><strong>123</strong></em></p>\n</blockquote>\n\n<ul>\n	<li>1</li>\n	<li>2</li>\n	<li>3</li>\n</ul>\n'),(38,'Лама','<p><img alt=\"\" src=\"https://animalreader.ru/wp-content/uploads/2017/04/Lama-Lama-glama.1.jpg\" style=\"height:202px; width:302px\" /></p>\n');
 /*!40000 ALTER TABLE `Tests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,16 +309,20 @@ CREATE TABLE `Tests History` (
   `Device ID` int(11) DEFAULT NULL,
   `Test ID` int(11) DEFAULT NULL,
   `Time` date NOT NULL,
-  `Result` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Comment` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `User ID` int(11) NOT NULL,
+  `Status ID` int(11) NOT NULL,
+  `Logfile` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Tests History_Devices_ID_fk` (`Device ID`),
   KEY `Tests History_Test_ID_fk` (`Test ID`),
   KEY `Tests History_Users_ID_fk` (`User ID`),
+  KEY `Tests History_Status_ID_index` (`Status ID`),
   CONSTRAINT `Tests History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
   CONSTRAINT `Tests History_Test_ID_fk` FOREIGN KEY (`Test ID`) REFERENCES `Tests` (`ID`),
+  CONSTRAINT `Tests History_Tests_Status__fk` FOREIGN KEY (`Status ID`) REFERENCES `Tests Status` (`ID`),
   CONSTRAINT `Tests History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,8 +331,32 @@ CREATE TABLE `Tests History` (
 
 LOCK TABLES `Tests History` WRITE;
 /*!40000 ALTER TABLE `Tests History` DISABLE KEYS */;
-INSERT INTO `Tests History` VALUES (78,52,1,'2019-12-03','ОК',143),(79,52,1,'2019-12-02','ОК',143),(80,52,1,'2019-12-01','ОК',143),(81,53,2,'2019-12-03','Частично',61),(82,53,2,'2019-12-02','Частично',61),(83,53,2,'2019-12-01','Частично',61),(84,54,25,'2019-12-03','+-',152),(85,54,25,'2019-12-02','+-',152),(86,54,25,'2019-12-01','+-',152);
 /*!40000 ALTER TABLE `Tests History` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Tests Status`
+--
+
+DROP TABLE IF EXISTS `Tests Status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Tests Status` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Value` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Tests Status_Value_uindex` (`Value`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Tests Status`
+--
+
+LOCK TABLES `Tests Status` WRITE;
+/*!40000 ALTER TABLE `Tests Status` DISABLE KEYS */;
+INSERT INTO `Tests Status` VALUES (2,'Провалено'),(1,'Успешно');
+/*!40000 ALTER TABLE `Tests Status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -274,7 +371,7 @@ CREATE TABLE `Types` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +380,7 @@ CREATE TABLE `Types` (
 
 LOCK TABLES `Types` WRITE;
 /*!40000 ALTER TABLE `Types` DISABLE KEYS */;
-INSERT INTO `Types` VALUES (32,'777'),(44,'jjj'),(1,'RSR'),(45,'SWB'),(8,'SWB_PEX'),(31,'SWB_PX'),(11,'TEST1'),(38,'Какой то тип'),(0,'Неизвестный тип'),(10,'Хуй');
+INSERT INTO `Types` VALUES (1,'RSR_SRS'),(45,'SWB'),(0,'Неизвестный тип');
 /*!40000 ALTER TABLE `Types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,6 +410,38 @@ LOCK TABLES `Users` WRITE;
 INSERT INTO `Users` VALUES (61,'root','24f863cab19f8600b622ce1391431b4c','Тимофей Волков'),(143,'alex','098f6bcd4621d373cade4e832627b4f6','Александра Курочкина'),(152,'testt','1a1dc91c907325c69271ddf0c944bc72','Тестировщик');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `Versions History`
+--
+
+DROP TABLE IF EXISTS `Versions History`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Versions History` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Device ID` int(11) DEFAULT NULL,
+  `Software ID` int(11) DEFAULT NULL,
+  `User ID` int(11) DEFAULT NULL,
+  `Time` date DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Versions History_Device ID_index` (`Device ID`),
+  KEY `Versions History_Software ID_index` (`Software ID`),
+  KEY `Versions History_User ID_index` (`User ID`),
+  CONSTRAINT `Versions History_Devices_ID_fk` FOREIGN KEY (`Device ID`) REFERENCES `Devices` (`ID`),
+  CONSTRAINT `Versions History_Software Versions_ID_fk` FOREIGN KEY (`Software ID`) REFERENCES `Software Versions` (`ID`),
+  CONSTRAINT `Versions History_Users_ID_fk` FOREIGN KEY (`User ID`) REFERENCES `Users` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Versions History`
+--
+
+LOCK TABLES `Versions History` WRITE;
+/*!40000 ALTER TABLE `Versions History` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Versions History` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -323,4 +452,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-03 21:52:20
+-- Dump completed on 2019-12-04 18:21:21

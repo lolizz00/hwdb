@@ -18,6 +18,18 @@ function sendPOST(data, target, _request, callback)
 }
 
 
+
+function fixFormOnWindow()
+{
+  setTimeout(function(){
+      $("div[class='dhx_popup dhx_widget dhx_popup--window dhx_popup--window_active']").each(function()
+        {
+          this['style']['z-index'] =  22;
+        }
+        );
+  }, 1000);
+}
+
 function clearWidget(wid)
 {
   $('#' + wid).html('');

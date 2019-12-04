@@ -86,26 +86,43 @@ function generateFormDevices(widget)
   });
 }
 
-function generateFormPlaces(widget)
+function generateFormPlaces(widget, addDelete=false)
 {
+
+
+
+  var _rows =  [
+    {
+      id: "name",
+      type: "input",
+      label: "Название места",
+      required: true
+    },
+    {
+      type: "button",
+      value: "Применить",
+      size: "medium",
+      id : "sendForm"
+    }
+  ];
+
+  if(addDelete)
+  {
+    _rows.push(  {
+        type: "button",
+        value: "Удалить",
+        size: "medium",
+        id : "delete"
+      });
+  }
+
+
+
   var form  = new dhx.Form(widget, {
     cellCss: 'dhx_widget--bordered',
-    height: 150,
+    height: 200,
     width: 500,
-    rows: [
-      {
-        id: "name",
-        type: "input",
-        label: "Название места",
-        required: true
-      },
-      {
-        type: "button",
-        value: "Применить",
-        size: "medium",
-        id : "sendForm"
-      }
-    ]
+    rows: _rows
   });
 
   return form;
@@ -184,7 +201,7 @@ function generateFormPlacesHistory(widget)
   });
 }
 
-function generateFormTests(widget)
+function generateFormTests(widget, addDelete=false)
 {
 
   /*
@@ -194,30 +211,37 @@ function generateFormTests(widget)
   clearWidget(formName);
   $('#' + widget).append("<div id='"+  formName +"'></div>");
 
+  var _rows = [
+    {
+      id: "nameInput",
+      type: "input",
+      label: "Название теста",
+      required: true
+    },
+    {
+      type: "button",
+      value: "Применить",
+      size: "medium",
+      id : "sendForm"
+    }
+  ];
+
+
+  if(addDelete)
+  {
+    _rows.push(  {
+        type: "button",
+        value: "Удалить",
+        size: "medium",
+        id : "delete"
+      });
+  }
+
   var form  = new dhx.Form(formName, {
     cellCss: 'dhx_widget--bordered',
-    height: 150,
+    height: 200,
     width: 500,
-    rows: [
-      {
-        id: "nameInput",
-        type: "input",
-        label: "Название теста",
-        required: true
-      },
-      /*{
-        id: "descInput", /
-        type: "textarea",
-        label: "Описание теста",
-        required: true
-      },*/
-      {
-        type: "button",
-        value: "Применить",
-        size: "medium",
-        id : "sendForm"
-      }
-    ]
+    rows: _rows
   });
 
   $('#' + widget).append("</br></br><div id='descEditor'></div>");
@@ -364,27 +388,40 @@ function generateFormTestsHistory(widget)
   });
 }
 
-function generateFormTypes(widget)
+function generateFormTypes(widget, addDelete=false)
 {
+
+  var _rows = [
+    {
+      id: "nameInput",
+      type: "input",
+      label: "Название типа",
+      required: true
+    },
+    {
+      type: "button",
+      value: "Применить",
+      size: "medium",
+      id : "sendForm"
+    },
+
+  ];
+
+  if(addDelete)
+  {
+    _rows.push(  {
+        type: "button",
+        value: "Удалить",
+        size: "medium",
+        id : "delete"
+      });
+  }
+
   var form  = new dhx.Form(widget, {
     cellCss: 'dhx_widget--bordered',
     height: 200,
     width: 500,
-    rows: [
-      {
-        id: "nameInput",
-        type: "input",
-        label: "Название типа",
-        required: true
-      },
-      {
-        type: "button",
-        value: "Применить",
-        size: "medium",
-        id : "sendForm"
-      },
-
-    ]
+    rows: _rows
   });
 
   return form;

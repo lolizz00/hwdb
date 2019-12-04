@@ -1,6 +1,7 @@
 function reportCompletedTestsDevices(widget, device)
 {
   var type = device['Тип устройства'];
+  var serial = device['Серийный номер'];
 
   getTable('Tests For Types').then(res =>{
     var data = res.data;
@@ -24,7 +25,12 @@ function reportCompletedTestsDevices(widget, device)
       // <span style='color: red'></span>
       for(var i =0; i < tests.length;i++)
       {
-          last = filterData(history, {'Название теста' : tests[i]});
+          last = filterData(history,
+            {
+              'Название теста' : tests[i],
+              'Серийный номер' : serial,
+              'Тип устройства' : type
+            });
           last =  getLastRowTestsHistory(last);
 
 
@@ -68,5 +74,63 @@ function reportCompletedTestsDevices(widget, device)
 
 function summaryReportDevices(widget, device)
 {
-  
+  var type = device['Тип устройства'];
+  var serial = device['Серийный номер'];
+
+  /* Все ли тесты выполнены  */
+  getTable('Tests For Types').then(res =>{
+    var data = res.data;
+
+    data = filterData(data, {
+      'Название типа' : type
+    });
+
+    var tests = dictGetValuesKey(data, 'Название теста');
+
+    getTable('Tests History').then(res => {
+        var history = res.data;
+
+        var allCompl = true;
+        for(var i =0; i < tests.length;i++)
+        {
+          last = filterData(history,
+            {
+              'Название теста' : tests[i],
+              'Серийный номер' : serial,
+              'Тип устройства' : type
+            });
+
+
+          last =  getLastRowTestsHistory(last);
+
+          if(last == null)
+          {
+            allCompl = false;
+          }
+        }
+
+        if(allCompl)
+        {
+          console.log('Все тесты выполнены');
+        }
+        else
+        {
+          console.log('Не все тесты выполнены');
+        }
+
+
+    });
+
+  });
+
+
+  getTable('Places History').then(res => {
+        var history = res.data;
+
+      //  last = filterData(history, {'Название теста' : tests[i]});
+    //    last =  getLastRowTestsHistory(last);
+
+  });
+
+
 }

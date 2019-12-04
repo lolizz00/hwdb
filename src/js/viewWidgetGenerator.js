@@ -74,7 +74,7 @@ function generateViewPlaces(widget, filter=null)
   });
 }
 
-function generateViewPlacesHistory(widget, filter=null)
+function generateViewPlacesHistory(widget, filter=null, selection=false)
 {
   return getTable('Places History')
   .then(res =>
@@ -83,13 +83,27 @@ function generateViewPlacesHistory(widget, filter=null)
     if(filter) { data = filterData(data, filter);}
     width = [150, 150, 150, 150, 150, 200];
 
+    if(selection)
+    {
+      var _selection = 'row';
+    }
+    else
+    {
+        _selection = "";
+    }
+
+    if(!data.length)
+    {
+      $('#' + widget).append('</br><b>Пусто!<b>');
+    }
 
     var grid  = new dhx.Grid(widget,
     {
       height: 300,
       width: 953,
       columns:  getHeadersFromData(data, width),
-      data: data
+      data: data,
+      selection : _selection
     });
 
     return grid;
@@ -143,22 +157,36 @@ function generateViewTestsForTypes(widget, filter=null)
   });
 }
 
-function generateViewTestHistory(widget, filter=null)
+function generateViewTestHistory(widget, filter=null, selection=false)
 {
   return getTable('Tests History')
   .then(res =>
   {
     var data = res.data;
-    if(filter) { data = filterData(data, filter);}
+    if(filter) { data = filterData(data, filter, true);}
     width = [150, 150, 220, 200, 150, 150, 150];
 
+    if(selection)
+    {
+      var _selection = 'row';
+    }
+    else
+    {
+        _selection = "";
+    }
+
+    if(!data.length)
+    {
+      $('#' + widget).append('</br><b>Пусто!<b>');
+    }
 
     var grid  = new dhx.Grid(widget,
     {
       height: 350,
       width: 1175, // TODO
       columns:  getHeadersFromData(data, width),
-      data: data
+      data: data,
+      selection: _selection
     });
 
     return grid;

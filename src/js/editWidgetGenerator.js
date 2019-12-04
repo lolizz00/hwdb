@@ -1,5 +1,3 @@
-
-
 /*
   widget - куда выводится форма для ввода параметров
   data - функция или массив с данными о текущем устройствe
@@ -66,7 +64,7 @@ function generateEditPlacesWidget(widget, data)
     return;
   }
 
-  form = generateFormPlaces(widget);
+  form = generateFormPlaces(widget, true);
 
   fillPlacesEditWidget(form, data);
 
@@ -100,6 +98,12 @@ function generateEditPlacesWidget(widget, data)
 
 
     }
+    else if (id == 'delete')
+    {
+        var vals = form.getValue();
+        vals = formValuesToArray(vals);
+        generateDeletePlacesWidget(vals);
+    }
   });
 
 }
@@ -114,7 +118,7 @@ function generateEditPlacesHistoryWidget(widget, data)
     return;
   }
 
-  generateFormPlacesHistory(widget).then(form =>
+  return generateFormPlacesHistory(widget).then(form =>
   {
     fillPlacesHistoryEditWidget(form, data);
 
@@ -151,7 +155,7 @@ function generateEditPlacesHistoryWidget(widget, data)
       }
     });
 
-
+    return form;
   });
 
 
@@ -170,7 +174,7 @@ function generateEditTests(widget, data)
   }
 
 
-  form = generateFormTests(widget);
+  form = generateFormTests(widget, true);
 
   fillTestsEditWidget(form, data);
 
@@ -206,6 +210,14 @@ function generateEditTests(widget, data)
 
 
     }
+    else if (id == 'delete')
+    {
+      var vals = form.getValue();
+      vals = formValuesToArray(vals);
+
+      generateDeleteTestsWidget(vals);
+
+    }
   });
 
 
@@ -222,7 +234,7 @@ function generateEditTestsHistory(widget, data)
     return;
   }
 
-  generateFormTestsHistory(widget).then(form =>
+  return generateFormTestsHistory(widget).then(form =>
   {
 
     fillTestsHistoryEditWidget(form, data);
@@ -259,6 +271,8 @@ function generateEditTestsHistory(widget, data)
 
       }
     });
+
+    return form;
   });
 }
 
@@ -273,7 +287,7 @@ function generateEditTypes(widget, data)
   }
 
 
-  form = generateFormTypes(widget);
+  form = generateFormTypes(widget, true);
 
   fillTypesEditWidget(form, data);
 
@@ -308,6 +322,12 @@ function generateEditTypes(widget, data)
       });
 
 
+    }
+    else if (id == 'delete')
+    {
+      var vals = form.getValue();
+      vals = formValuesToArray(vals);
+      generateDeleteTypesWidget(vals);
     }
   });
 

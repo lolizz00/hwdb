@@ -1,1 +1,1 @@
-mysql -uroot -psimonka13 SWB < SWB.sql
+mysql -uroot -psimonka13 SWB < /srv/http/database/SWB.sql
